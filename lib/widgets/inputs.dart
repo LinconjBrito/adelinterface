@@ -30,11 +30,11 @@ class _NumberInputWidgetState extends State<NumberInputWidget> {
       children: [
         Container(
           decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFF34C759), width: 2.0 ),
+            border: Border.all(color: Color(0xFFFF3B30), width: 2.0 ),
             borderRadius: BorderRadius.circular(50.0)
           ),
           child: IconButton(
-            color: Color(0xFF34C759),
+            color: Color(0xFFFF3B30),
           icon: Icon(Icons.remove,),
           onPressed: () {
             setState(() {
@@ -77,11 +77,11 @@ class _NumberInputWidgetState extends State<NumberInputWidget> {
         SizedBox(width: 22.0,),
         Container(
           decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFFFF3B30), width: 2.0 ),
+            border: Border.all(color: Color(0xFF34C759), width: 2.0 ),
             borderRadius: BorderRadius.circular(50.0)
           ),
           child: IconButton(
-            color: Color(0xFFFF3B30),
+            color: Color(0xFF34C759),
             icon: const  Icon(Icons.add),
             onPressed: () {
               setState(() {

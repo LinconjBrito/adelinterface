@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 final Color fundo = Color(0xFF131F24);
 
 void main() {
-  runApp(MeuEscalonador());
+  runApp(const MeuEscalonador());
 }
 
 class MeuEscalonador extends StatelessWidget {
@@ -81,28 +81,32 @@ class MeuEscalonador extends StatelessWidget {
 
                   const SizedBox(height: 60.0),
 
-                  ElevatedButton(
-                    onPressed: () {
-                      // Ação a ser executada quando o botão é pressionado
-                      print('Botão pressionado!');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red, // Cor de fundo do botão
-                      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0), // Padding interno
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0), // Bordas arredondadas
+                  Align(
+                    alignment: Alignment.centerLeft, // Alinha o botão à esquerda
+                    child: FractionallySizedBox(
+                      widthFactor: 0.6,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Ação a ser executada quando o botão é pressionado
+                          print('Botão pressionado!');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xff34C759), // Cor de fundo do botão
+                          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0), // Padding interno
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0), // Bordas arredondadas
+                          ),
+                          elevation: 5.0, // Sombreamento do botão
+                          shadowColor: const Color.fromARGB(255, 0, 80, 11), // Cor da sombra
+                        ),
+                        child: Text(
+                          'Escalonar',
+                          style: GoogleFonts.asap(fontSize: 30.0, color: Color(0xFFE5E5E5), fontWeight: FontWeight.w800), // Tamanho do texto
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      'Escalonar',
-                      style: TextStyle(fontSize: 30.0), // Tamanho do texto
                     ),
                   )
 
-
-                  
-
-                  
                 ],
               ),
             ),
@@ -110,7 +114,7 @@ class MeuEscalonador extends StatelessWidget {
               bottom: 0,
               right: 0,
               child: Container(
-                child: Image.asset("assets/images/ilustracaop1.png", width: 120),
+                child: Image.asset("assets/images/ilustracaop1.png", width: 150),
               ),
             ),
           ],
