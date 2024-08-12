@@ -101,7 +101,8 @@ class MeuEscalonador extends StatelessWidget {
                         ),
                         child: Text(
                           'Escalonar',
-                          style: GoogleFonts.asap(fontSize: 30.0, color: Color(0xFFE5E5E5), fontWeight: FontWeight.w800), // Tamanho do texto
+                          style: GoogleFonts.asap(fontSize: 30.0, color: Color(0xFFE5E5E5), fontWeight: FontWeight.w800, ),
+                           // Tamanho do texto
                         ),
                       ),
                     ),
