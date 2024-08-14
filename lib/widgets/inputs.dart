@@ -1,20 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return NumberInputWidget();
-  }
-}
-
-
-
 class NumberInputWidget extends StatefulWidget {
+  final Function(int) onValueChanged;
+  NumberInputWidget({required this.onValueChanged});
+
   @override
   _NumberInputWidgetState createState() => _NumberInputWidgetState();
 }
@@ -41,6 +31,7 @@ class _NumberInputWidgetState extends State<NumberInputWidget> {
               _currentValue = int.parse(_controller.text);
               if (_currentValue > 0) _currentValue--;
               _controller.text = _currentValue.toString();
+              widget.onValueChanged(_currentValue);
             });
           },
         ),
@@ -69,6 +60,7 @@ class _NumberInputWidgetState extends State<NumberInputWidget> {
             onChanged: (value) {
               setState(() {
                 _currentValue = int.tryParse(value) ?? 0;
+                widget.onValueChanged(_currentValue);
               });
             },
           ),
@@ -88,6 +80,7 @@ class _NumberInputWidgetState extends State<NumberInputWidget> {
                 _currentValue = int.parse(_controller.text);
                 _currentValue++;
                 _controller.text = _currentValue.toString();
+                widget.onValueChanged(_currentValue);
               });
             },
           ),
