@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:escalonadors0/Gantpage.dart';
 
 class PageProcessos extends StatefulWidget {
-  final int quantidadeProcessos;
+  int quantidadeProcessos;
   final int quantum;
   final int sobrecarga;
 
@@ -70,6 +70,8 @@ class _PageProcessosState extends State<PageProcessos> {
       chegadaControllers.removeAt(index);
       execucaoControllers.removeAt(index);
       deadlineControllers.removeAt(index);
+
+      widget.quantidadeProcessos = processos.length;
     });
   }
 
