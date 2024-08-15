@@ -23,6 +23,29 @@ class _PageProcessosState extends State<PageProcessos> {
   List<TextEditingController> execucaoControllers = [];
   List<TextEditingController> deadlineControllers = [];
   List<int> processos = [];
+  List<Map<String, int>> processosJson = [];
+
+
+
+  void preencherProcessosJson(){
+    processosJson.clear(); // Limpa a lista antes de preenchê-la novamente
+
+    for (int i = 0; i < processos.length; i++){
+      processosJson.add({
+        "T_chegada": int.tryParse(chegadaControllers[i].text)??0,
+        "T_exec": int.tryParse(execucaoControllers[i].text)??0,
+        "Termino": 0,
+        "Turnaround": 0,
+        "Deadline": int.tryParse(deadlineControllers[i].text)??0,
+      });
+    }
+    processosJson.add({
+      "qtd_processos": widget.quantidadeProcessos,
+      "quantum": widget.quantum,
+      "sobrecarga": widget.sobrecarga,
+    });
+
+  }
 
   @override
   void initState() {
@@ -292,31 +315,19 @@ class _PageProcessosState extends State<PageProcessos> {
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                 child: ElevatedButton(
                   onPressed: () {
-                    //Lista json
-                    List<Map<String, int>> processosJson = [];
-                    for (int i = 0; i < processos.length; i++){
-                      processosJson.add({
-                        "T_chegada": int.tryParse(chegadaControllers[i].text)??0,
-                        "T_exec": int.tryParse(execucaoControllers[i].text)??0,
-                        "Termino": 0,
-                        "Deadline": int.tryParse(deadlineControllers[i].text)??0,
-                      });
-                    }
-                    processosJson.add({
-                      "qtd_processos": widget.quantidadeProcessos,
-                      "quantum": widget.quantum,
-                      "sobrecarga": widget.sobrecarga,
-
-                    });
-
+                    preencherProcessosJson();
                     Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => GantPage(dadosProcessos: processosJson))
+                      MaterialPageRoute(builder: (context) => GantPage(dadosProcessos: processosJson),
+                      
+                      
+                      ),
+                      
                     );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: verde,
                     padding:
-                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
@@ -340,9 +351,11 @@ class _PageProcessosState extends State<PageProcessos> {
                   color: amarelo,
                   icon: const Icon(Icons.bolt),
                   onPressed: () {
-                    print('Faster');
+                    preencherProcessosJson();
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Faster()));
+                    
+                        MaterialPageRoute(builder: (context) => Faster(jsonData: processosJson,)));
+
                   },
                 ),
               ),
