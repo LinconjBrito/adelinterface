@@ -19,23 +19,57 @@ class PageProcessos extends StatefulWidget {
 }
 
 class _PageProcessosState extends State<PageProcessos> {
+  List<TextEditingController> chegadaControllers = [];
+  List<TextEditingController> execucaoControllers = [];
+  List<TextEditingController> deadlineControllers = [];
   List<int> processos = [];
 
   @override
   void initState() {
     super.initState();
     processos = List.generate(widget.quantidadeProcessos, (index) => index);
+
+
+    //Iniciar os controladores
+    for (int i = 0; i < widget.quantidadeProcessos; i++){
+      chegadaControllers.add(TextEditingController());
+      execucaoControllers.add(TextEditingController());
+      deadlineControllers.add(TextEditingController());
+    }
+  }
+
+  @override
+  void dispose(){
+    //Libera os valores dos controladores
+    for (var controller in chegadaControllers){
+      controller.dispose();
+    }
+    for (var controller in execucaoControllers){
+      controller.dispose();
+    }
+    for (var controller in deadlineControllers){
+      controller.dispose();
+    }
   }
 
   void adicionarProcesso() {
-    setState(() {
-      processos.add(processos.length);
-    });
-  }
+      setState(() {
+        processos.add(processos.length);
+        chegadaControllers.add(TextEditingController());
+        execucaoControllers.add(TextEditingController());
+        deadlineControllers.add(TextEditingController());
+      });
+    }
 
   void removerProcesso(int index) {
     setState(() {
       processos.removeAt(index);
+      chegadaControllers[index].dispose();
+      execucaoControllers[index].dispose();
+      deadlineControllers[index].dispose();
+      chegadaControllers.removeAt(index);
+      execucaoControllers.removeAt(index);
+      deadlineControllers.removeAt(index);
     });
   }
 
@@ -130,6 +164,7 @@ class _PageProcessosState extends State<PageProcessos> {
                             child: SizedBox(
                               width: 150,
                               child: TextField(
+                                controller: chegadaControllers[index],
                                 style: GoogleFonts.asap(
                                     fontSize: 20,
                                     color: const Color(0xffe5e5e5)),
@@ -168,6 +203,7 @@ class _PageProcessosState extends State<PageProcessos> {
                             child: SizedBox(
                               width: 150,
                               child: TextField(
+                                controller: execucaoControllers[index],
                                 style: GoogleFonts.asap(
                                     fontSize: 20,
                                     color: const Color(0xffe5e5e5)),
@@ -206,6 +242,7 @@ class _PageProcessosState extends State<PageProcessos> {
                             child: SizedBox(
                               width: 150,
                               child: TextField(
+                                controller: deadlineControllers[index],
                                 style: GoogleFonts.asap(
                                     fontSize: 20,
                                     color: const Color(0xffe5e5e5)),
@@ -235,10 +272,6 @@ class _PageProcessosState extends State<PageProcessos> {
             ),
           ),
 
-          // Center(child: Row(children: [
-
-          // ],),)
-
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -257,8 +290,25 @@ class _PageProcessosState extends State<PageProcessos> {
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                 child: ElevatedButton(
                   onPressed: () {
+                    //Lista json
+                    List<Map<String, int>> processosJson = [];
+                    for (int i = 0; i < processos.length; i++){
+                      processosJson.add({
+                        "T_chegada": int.tryParse(chegadaControllers[i].text)??0,
+                        "T_exec": int.tryParse(execucaoControllers[i].text)??0,
+                        "Termino": 0,
+                        "Deadline": int.tryParse(deadlineControllers[i].text)??0,
+                      });
+                    }
+                    processosJson.add({
+                      "qtd_processos": widget.quantidadeProcessos,
+                      "quantum": widget.quantum,
+                      "sobrecarga": widget.sobrecarga,
+
+                    });
+
                     Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => GantPage())
+                      MaterialPageRoute(builder: (context) => GantPage(dadosProcessos: processosJson))
                     );
                   },
                   style: ElevatedButton.styleFrom(

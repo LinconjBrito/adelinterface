@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class GantPage extends StatefulWidget {
-  const GantPage({super.key});
+  final List<Map<String, int>> dadosProcessos;
+  const GantPage({super.key, required this.dadosProcessos});
 
   @override
   State<GantPage> createState() => _GantPageState();
@@ -43,8 +44,40 @@ class _GantPageState extends State<GantPage> {
           ),
         ),
       ),
-      body: Column(
-        
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Dados dos Processos:',
+              style: GoogleFonts.asap(
+                fontSize: 25.0,
+                color: branco,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(height: 20),
+            Expanded(
+              child: ListView.builder(
+                itemCount: widget.dadosProcessos.length,
+                itemBuilder: (context, index) {
+                  final processo = widget.dadosProcessos[index];
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Text(
+                      processo.toString(),
+                      style: GoogleFonts.asap(
+                        fontSize: 18.0,
+                        color: branco,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
 
     );
