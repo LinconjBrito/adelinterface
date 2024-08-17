@@ -25,18 +25,16 @@ class _PageProcessosState extends State<PageProcessos> {
   List<int> processos = [];
   List<Map<String, int>> processosJson = [];
 
-
-
-  void preencherProcessosJson(){
+  void preencherProcessosJson() {
     processosJson.clear(); // Limpa a lista antes de preenchê-la novamente
 
-    for (int i = 0; i < processos.length; i++){
+    for (int i = 0; i < processos.length; i++) {
       processosJson.add({
-        "T_chegada": int.tryParse(chegadaControllers[i].text)??0,
-        "T_exec": int.tryParse(execucaoControllers[i].text)??0,
+        "T_chegada": int.tryParse(chegadaControllers[i].text) ?? 0,
+        "T_exec": int.tryParse(execucaoControllers[i].text) ?? 0,
         "Termino": 0,
         "Turnaround": 0,
-        "Deadline": int.tryParse(deadlineControllers[i].text)??0,
+        "Deadline": int.tryParse(deadlineControllers[i].text) ?? 0,
       });
     }
     processosJson.add({
@@ -44,7 +42,6 @@ class _PageProcessosState extends State<PageProcessos> {
       "quantum": widget.quantum,
       "sobrecarga": widget.sobrecarga,
     });
-
   }
 
   @override
@@ -52,9 +49,8 @@ class _PageProcessosState extends State<PageProcessos> {
     super.initState();
     processos = List.generate(widget.quantidadeProcessos, (index) => index);
 
-
     //Iniciar os controladores
-    for (int i = 0; i < widget.quantidadeProcessos; i++){
+    for (int i = 0; i < widget.quantidadeProcessos; i++) {
       chegadaControllers.add(TextEditingController());
       execucaoControllers.add(TextEditingController());
       deadlineControllers.add(TextEditingController());
@@ -62,27 +58,27 @@ class _PageProcessosState extends State<PageProcessos> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     //Libera os valores dos controladores
-    for (var controller in chegadaControllers){
+    for (var controller in chegadaControllers) {
       controller.dispose();
     }
-    for (var controller in execucaoControllers){
+    for (var controller in execucaoControllers) {
       controller.dispose();
     }
-    for (var controller in deadlineControllers){
+    for (var controller in deadlineControllers) {
       controller.dispose();
     }
   }
 
   void adicionarProcesso() {
-      setState(() {
-        processos.add(processos.length);
-        chegadaControllers.add(TextEditingController());
-        execucaoControllers.add(TextEditingController());
-        deadlineControllers.add(TextEditingController());
-      });
-    }
+    setState(() {
+      processos.add(processos.length);
+      chegadaControllers.add(TextEditingController());
+      execucaoControllers.add(TextEditingController());
+      deadlineControllers.add(TextEditingController());
+    });
+  }
 
   void removerProcesso(int index) {
     setState(() {
@@ -296,18 +292,35 @@ class _PageProcessosState extends State<PageProcessos> {
               },
             ),
           ),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: verde, width: 1.0),
-                    borderRadius: BorderRadius.circular(10.0)),
-                child: IconButton(
+              OutlinedButton(
+                onPressed: () {
+                  preencherProcessosJson();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          GantPage(dadosProcessos: processosJson),
+                    ),
+                  );
+                },
+                style: OutlinedButton.styleFrom(
+                  minimumSize:
+                      Size(45, 45), // Garante que o botão seja exatamente 40x40
+                  side: BorderSide(color: verde),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  backgroundColor: Colors.transparent,
+                  padding: EdgeInsets.zero, // Remove o padding extra
+                ),
+                child: Icon(
+                  Icons.add,
                   color: verde,
-                  icon: const Icon(Icons.add),
-                  onPressed: adicionarProcesso,
+                  size:
+                      20, // Tamanho do ícone ajustado para caber dentro do botão
                 ),
               ),
               Padding(
@@ -316,18 +329,18 @@ class _PageProcessosState extends State<PageProcessos> {
                 child: ElevatedButton(
                   onPressed: () {
                     preencherProcessosJson();
-                    Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => GantPage(dadosProcessos: processosJson),
-                      
-                      
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            GantPage(dadosProcessos: processosJson),
                       ),
-                      
                     );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: verde,
                     padding:
-                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
@@ -343,20 +356,31 @@ class _PageProcessosState extends State<PageProcessos> {
                   ),
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: amarelo, width: 1.0),
-                    borderRadius: BorderRadius.circular(10.0)),
-                child: IconButton(
+              OutlinedButton(
+                onPressed: () {
+                  preencherProcessosJson();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Faster(jsonData: processosJson),
+                    ),
+                  );
+                },
+                style: OutlinedButton.styleFrom(
+                  minimumSize:
+                      Size(45, 45), // Garante que o botão seja exatamente 40x40
+                  side: BorderSide(color: amarelo),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  backgroundColor: Colors.transparent,
+                  padding: EdgeInsets.zero, // Remove o padding extra
+                ),
+                child: Icon(
+                  Icons.bolt,
                   color: amarelo,
-                  icon: const Icon(Icons.bolt),
-                  onPressed: () {
-                    preencherProcessosJson();
-                    Navigator.push(context,
-                    
-                        MaterialPageRoute(builder: (context) => Faster(jsonData: processosJson,)));
-
-                  },
+                  size:
+                      20, // Tamanho do ícone ajustado para caber dentro do botão
                 ),
               ),
             ],
