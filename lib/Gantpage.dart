@@ -11,6 +11,7 @@ class GantPage extends StatefulWidget {
 
 class _GantPageState extends State<GantPage> {
   String _selectedButton = '';
+  double _speedFactor = 1.0; // Fator de velocidade inicial
 
   void _handleButtonPress(String buttonText) {
     setState(() {
@@ -66,6 +67,28 @@ class _GantPageState extends State<GantPage> {
                 _buildButton("EDF", cinza, verde, _selectedButton == "EDF"),
               ],
             ),
+            SizedBox(height: 20),
+            Text(
+              'Velocidade de Amostragem: ${_speedFactor.toStringAsFixed(1)}x',
+              style: GoogleFonts.asap(
+                fontSize: 18,
+                color: branco,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            Slider(
+              value: _speedFactor,
+              min: 0.5,
+              max: 2.0,
+              divisions: 5,
+              onChanged: (double value) {
+                setState(() {
+                  _speedFactor = value;
+                });
+              },
+              activeColor: verde,
+              inactiveColor: cinza,
+            ),
           ],
         ),
       ),
@@ -74,7 +97,9 @@ class _GantPageState extends State<GantPage> {
 
   Widget _buildButton(String text, Color borderColor, Color textColor, bool isSelected) {
     return OutlinedButton(
-      onPressed: () => _handleButtonPress(text),
+      onPressed: (){ 
+        _handleButtonPress(text);
+      },
       style: OutlinedButton.styleFrom(
         side: BorderSide(color: isSelected ? textColor : borderColor, width: 2.0),
         shape: RoundedRectangleBorder(

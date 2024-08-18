@@ -77,6 +77,7 @@ class _PageProcessosState extends State<PageProcessos> {
       chegadaControllers.add(TextEditingController());
       execucaoControllers.add(TextEditingController());
       deadlineControllers.add(TextEditingController());
+      widget.quantidadeProcessos = processos.length;
     });
   }
 
@@ -102,7 +103,7 @@ class _PageProcessosState extends State<PageProcessos> {
     final Color branco = Color(0xFFE5E5E5);
     final Color verde = Color(0xFF34C759);
     final Color amarelo = Color(0xFFFFD74A);
-
+    final Color vermelho = Color.fromARGB(255, 219, 53, 53);
     return Scaffold(
       backgroundColor: fundo,
       appBar: AppBar(
@@ -161,129 +162,20 @@ class _PageProcessosState extends State<PageProcessos> {
                                 ),
                               ),
                               IconButton(
-                                icon: Icon(Icons.remove_circle,
-                                    color: rosadestaque),
+                                iconSize: 30,
+                                icon: Icon(Icons.delete_forever_rounded,
+                                    color: vermelho),
                                 onPressed: () => removerProcesso(index),
                               ),
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 40.0),
-                            child: Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                'Chegada:',
-                                style: GoogleFonts.asap(
-                                    fontSize: 20,
-                                    color: branco,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SizedBox(
-                              width: 150,
-                              child: TextField(
-                                controller: chegadaControllers[index],
-                                style: GoogleFonts.asap(
-                                    fontSize: 20,
-                                    color: const Color(0xffe5e5e5)),
-                                keyboardType: TextInputType.number,
-                                textAlign: TextAlign.center,
-                                decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 10.0),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Color(0xff373D49)),
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(12.0)),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 40.0),
-                            child: Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                'Execução:',
-                                style: GoogleFonts.asap(
-                                    fontSize: 20,
-                                    color: branco,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SizedBox(
-                              width: 150,
-                              child: TextField(
-                                controller: execucaoControllers[index],
-                                style: GoogleFonts.asap(
-                                    fontSize: 20,
-                                    color: const Color(0xffe5e5e5)),
-                                keyboardType: TextInputType.number,
-                                textAlign: TextAlign.center,
-                                decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 10.0),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Color(0xff373D49)),
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(12.0)),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 40.0),
-                            child: Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                'Deadline:',
-                                style: GoogleFonts.asap(
-                                    fontSize: 20,
-                                    color: branco,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SizedBox(
-                              width: 150,
-                              child: TextField(
-                                controller: deadlineControllers[index],
-                                style: GoogleFonts.asap(
-                                    fontSize: 20,
-                                    color: const Color(0xffe5e5e5)),
-                                keyboardType: TextInputType.number,
-                                textAlign: TextAlign.center,
-                                decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 10.0),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Color(0xff373D49)),
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(12.0)),
-                                ),
-                              ),
-                            ),
-                          ),
+                          _textos('Chegada:'),
+                          CustomTextField(controller: chegadaControllers[index]),
+                          _textos('Execução:'),
+                          CustomTextField(controller: execucaoControllers[index]),
+                          _textos('Deadline:'),
+                          CustomTextField(controller: deadlineControllers[index]),
+                          
                         ],
                       ),
                     ),
@@ -297,19 +189,12 @@ class _PageProcessosState extends State<PageProcessos> {
             children: [
               OutlinedButton(
                 onPressed: () {
-                  preencherProcessosJson();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          GantPage(dadosProcessos: processosJson),
-                    ),
-                  );
+                  adicionarProcesso();
                 },
                 style: OutlinedButton.styleFrom(
                   minimumSize:
                       Size(45, 45), // Garante que o botão seja exatamente 40x40
-                  side: BorderSide(color: verde),
+                  side: BorderSide(color: verde, width: 2),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -368,8 +253,8 @@ class _PageProcessosState extends State<PageProcessos> {
                 },
                 style: OutlinedButton.styleFrom(
                   minimumSize:
-                      Size(45, 45), // Garante que o botão seja exatamente 40x40
-                  side: BorderSide(color: amarelo),
+                      Size(45, 45), // Garante que o botão seja exatamente 45x45
+                  side: BorderSide(color: amarelo, width: 2),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -383,6 +268,7 @@ class _PageProcessosState extends State<PageProcessos> {
                       20, // Tamanho do ícone ajustado para caber dentro do botão
                 ),
               ),
+
             ],
           )
         ],
@@ -390,3 +276,57 @@ class _PageProcessosState extends State<PageProcessos> {
     );
   }
 }
+
+Widget _textos(String text) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 40.0),
+    child: Align(
+      alignment: Alignment.topLeft,
+      child: Text(
+        text,
+        style: GoogleFonts.asap(
+            fontSize: 20,
+            color: Color(0xFFE5E5E5),
+            fontWeight: FontWeight.w500),
+      ),
+    ),
+  );
+}
+
+
+class CustomTextField extends StatelessWidget {
+  final TextEditingController controller;
+
+  CustomTextField({required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        width: 150,
+        child: TextField(
+          controller: controller,
+          style: GoogleFonts.asap(
+            fontSize: 20,
+            color: const Color(0xffe5e5e5),
+          ),
+          keyboardType: TextInputType.number,
+          textAlign: TextAlign.center,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
+            enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Color(0xff373D49)),
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
