@@ -60,9 +60,10 @@ class _FasterState extends State<Faster> {
   }
 
   // Função para realizar uma requisição POST para qualquer endpoint
-  Future<Map<String, dynamic>> postToEndpoint(String endpoint, dynamic body) async {
+  Future<Map<String, dynamic>> postToEndpoint(
+      String endpoint, dynamic body) async {
     final url = Uri.parse('$baseUrl$endpoint');
-  
+
     try {
       final response = await http.post(
         url,
@@ -73,7 +74,8 @@ class _FasterState extends State<Faster> {
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else {
-        throw Exception('Falha ao carregar dados. Status code: ${response.statusCode}');
+        throw Exception(
+            'Falha ao carregar dados. Status code: ${response.statusCode}');
       }
     } catch (e) {
       throw Exception('Erro: $e');

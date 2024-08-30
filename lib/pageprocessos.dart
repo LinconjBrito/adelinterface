@@ -1,7 +1,8 @@
 import 'package:escalonadors0/faster.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:escalonadors0/Gantpage.dart';
+// import 'package:escalonadors0/gant.dart';
+import 'package:escalonadors0/grafico.dart';
 
 class PageProcessos extends StatefulWidget {
   int quantidadeProcessos;
@@ -35,6 +36,7 @@ class _PageProcessosState extends State<PageProcessos> {
         "Termino": 0,
         "Turnaround": 0,
         "Deadline": int.tryParse(deadlineControllers[i].text) ?? 0,
+        "Id": i
       });
     }
     processosJson.add({
@@ -69,6 +71,7 @@ class _PageProcessosState extends State<PageProcessos> {
     for (var controller in deadlineControllers) {
       controller.dispose();
     }
+
   }
 
   void adicionarProcesso() {
@@ -153,7 +156,7 @@ class _PageProcessosState extends State<PageProcessos> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 20.0, vertical: 10),
                                 child: Text(
-                                  'Processo ${index + 1}',
+                                  'Processo ${index+1}',
                                   style: GoogleFonts.asap(
                                     fontSize: 30,
                                     color: laranjadestaque,
@@ -213,12 +216,14 @@ class _PageProcessosState extends State<PageProcessos> {
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                 child: ElevatedButton(
                   onPressed: () {
+
                     preencherProcessosJson();
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            GantPage(dadosProcessos: processosJson),
+                            Gant(dadosProcessos: processosJson,),
+                            
                       ),
                     );
                   },
@@ -247,7 +252,7 @@ class _PageProcessosState extends State<PageProcessos> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Faster(jsonData: processosJson),
+                      builder: (context) => Faster(jsonData: processosJson,),
                     ),
                   );
                 },
