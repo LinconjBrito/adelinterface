@@ -65,9 +65,7 @@ class _GantState extends State<Gant> {
         results[buttonText] = response['turnaround'];
         selectedData = List<List<int>>.from(
           response['grafico'].map((item) => List<int>.from(item)),
-
         );
-
 
         isLoading = false;
         currentColumn = 0; // Resetar a coluna atual
@@ -81,7 +79,8 @@ class _GantState extends State<Gant> {
     }
   }
 
-  Future<Map<String, dynamic>> postToEndpoint(String endpoint, dynamic body) async {
+  Future<Map<String, dynamic>> postToEndpoint(
+      String endpoint, dynamic body) async {
     final url = Uri.parse('$baseUrl$endpoint');
 
     try {
@@ -94,7 +93,8 @@ class _GantState extends State<Gant> {
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else {
-        throw Exception('Falha ao carregar dados. Status code: ${response.statusCode}');
+        throw Exception(
+            'Falha ao carregar dados. Status code: ${response.statusCode}');
       }
     } catch (e) {
       throw Exception('Erro: $e');
@@ -109,7 +109,8 @@ class _GantState extends State<Gant> {
         setState(() {
           currentColumn++;
           if (currentColumn >= selectedData[0].length) {
-            _timer?.cancel(); // Para o timer quando todas as colunas foram exibidas
+            _timer
+                ?.cancel(); // Para o timer quando todas as colunas foram exibidas
           }
         });
       },
@@ -153,12 +154,11 @@ class _GantState extends State<Gant> {
 
   @override
   Widget build(BuildContext context) {
-    final Color fundo = const Color(0xFF131F24);
-    final Color rosadestaque = const Color(0xFFFF2D55);
-    final Color laranjadestaque = const Color(0xFFFF9500);
-    final Color branco = const Color(0xFFE5E5E5);
-    final Color verde = const Color(0xFF34C759);
-    final Color cinza = const Color(0xFF8E8E93);
+    const Color fundo = Color(0xFF131F24);
+    const Color rosadestaque = Color(0xFFFF2D55);
+    const Color branco = Color(0xFFE5E5E5);
+    const Color verde = Color(0xFF34C759);
+    const Color cinza = Color(0xFF8E8E93);
 
     return Scaffold(
       backgroundColor: fundo,
@@ -169,7 +169,7 @@ class _GantState extends State<Gant> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back, color: rosadestaque),
+          icon: const Icon(Icons.arrow_back, color: rosadestaque),
         ),
         backgroundColor: fundo,
         title: Align(
@@ -192,16 +192,20 @@ class _GantState extends State<Gant> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildButton("FIFO", cinza, verde, fundo, branco, _selectedButton == "FIFO"),
-                _buildButton("SJF", cinza, verde, fundo, branco, _selectedButton == "SJF"),
-                _buildButton("RR", cinza, verde, fundo, branco, _selectedButton == "RR"),
-                _buildButton("EDF", cinza, verde, fundo, branco, _selectedButton == "EDF"),
+                _buildButton("FIFO", cinza, verde, fundo, branco,
+                    _selectedButton == "FIFO"),
+                _buildButton("SJF", cinza, verde, fundo, branco,
+                    _selectedButton == "SJF"),
+                _buildButton(
+                    "RR", cinza, verde, fundo, branco, _selectedButton == "RR"),
+                _buildButton("EDF", cinza, verde, fundo, branco,
+                    _selectedButton == "EDF"),
               ],
             ),
             const SizedBox(height: 20),
             Expanded(
               child: isLoading
-                  ? Center(
+                  ? const Center(
                       child: CircularProgressIndicator(
                         color: verde,
                       ),
@@ -223,47 +227,52 @@ class _GantState extends State<Gant> {
                             scrollDirection: Axis.horizontal,
                             child: Column(
                               children: [
-
-
-                              for (int row = 0; row < 1; row++)
+                                for (int row = 0; row < 1; row++)
                                   Row(
                                     children: [
-                                     
                                       // Row label
                                       Container(
                                         width: 24,
                                         height: 24,
                                         color: Colors.transparent,
-                                        child: Center(
+                                        child: const Center(
                                           child: Text(
                                             '',
-                                            style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255)),
+                                            style: TextStyle(
+                                                color: const Color.fromARGB(
+                                                    255, 255, 255, 255)),
                                           ),
                                         ),
                                       ),
 
                                       // Row cells
-                                      for (int col = 0; col < selectedData[0].length; col++)
+                                      for (int col = 0;
+                                          col < selectedData[0].length;
+                                          col++)
                                         Container(
-                                          child: Center(child: Text('$col', style: TextStyle(color: Colors.white),),),
                                           width: 24,
                                           height: 24,
-                                          margin: EdgeInsets.all(2),
+                                          margin: const EdgeInsets.all(2),
                                           color: Colors.transparent,
+                                          child: Center(
+                                            child: Text(
+                                              '$col',
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
                                         ),
                                     ],
                                   ),
 
-
-
-
                                 // Header row for column labels
 
                                 // Grid rows with row labels
-                                for (int row = 0; row < selectedData.length; row++)
+                                for (int row = 0;
+                                    row < selectedData.length;
+                                    row++)
                                   Row(
                                     children: [
-                                     
                                       // Row label
                                       Container(
                                         width: 24,
@@ -272,38 +281,48 @@ class _GantState extends State<Gant> {
                                         child: Center(
                                           child: Text(
                                             '${row + 1}',
-                                            style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255)),
+                                            style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 255, 255, 255)),
                                           ),
                                         ),
                                       ),
 
                                       // Row cells
-                                      for (int col = 0; col < selectedData[row].length; col++)
+                                      for (int col = 0;
+                                          col < selectedData[row].length;
+                                          col++)
                                         Container(
                                           width: 24,
                                           height: 24,
-                                          margin: EdgeInsets.all(2),
+                                          margin: const EdgeInsets.all(2),
                                           color: col <= currentColumn
-                                              ? getColorForValue(selectedData[row][col])
+                                              ? getColorForValue(
+                                                  selectedData[row][col])
                                               : Colors.transparent,
                                         ),
                                     ],
                                   ),
 
-
-                                  SizedBox(height: 40,),
-                                  if (_selectedButton.isNotEmpty && results[_selectedButton] != null)
-                                    Text(
-                                      'Turnaround: ${results[_selectedButton]}',
-                                      style: GoogleFonts.asap(
-                                        fontSize: 40,
-                                        color: rosadestaque,
-                                        fontWeight: FontWeight.w700,
-                                      ),
+                                const SizedBox(
+                                  height: 40,
+                                ),
+                                if (_selectedButton.isNotEmpty &&
+                                    results[_selectedButton] != null)
+                                  Text(
+                                    'Turnaround: ${results[_selectedButton]}',
+                                    style: GoogleFonts.asap(
+                                      fontSize: 40,
+                                      color: rosadestaque,
+                                      fontWeight: FontWeight.w700,
                                     ),
+                                  ),
 
-                                SizedBox(height: 40),
-                                Text("Velocidade de Amostragem", style: TextStyle(color: Colors.white),),
+                                const SizedBox(height: 40),
+                                const Text(
+                                  "Velocidade de Amostragem",
+                                  style: TextStyle(color: Colors.white),
+                                ),
                                 Slider(
                                   activeColor: verde,
                                   value: _speedFactor,
@@ -315,15 +334,15 @@ class _GantState extends State<Gant> {
                                     updateSamplingSpeed(value);
                                   },
                                 ),
-                                SizedBox(height: 20),
+                                const SizedBox(height: 20),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: rosadestaque
-                                  ),
-                                 
-                                  
+                                      backgroundColor: rosadestaque),
                                   onPressed: resetGrid,
-                                  child: Text('Reset', style: TextStyle(color: branco),),
+                                  child: const Text(
+                                    'Reset',
+                                    style: TextStyle(color: branco),
+                                  ),
                                 ),
                               ],
                             ),
@@ -336,8 +355,8 @@ class _GantState extends State<Gant> {
     );
   }
 
-  Widget _buildButton(
-      String texto, Color cinza, Color verde, Color fundo, Color branco, bool isSelected) {
+  Widget _buildButton(String texto, Color cinza, Color verde, Color fundo,
+      Color branco, bool isSelected) {
     return OutlinedButton(
       onPressed: () {
         _handleButtonPress(texto);
@@ -347,14 +366,14 @@ class _GantState extends State<Gant> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
-        
         backgroundColor: isSelected ? verde : fundo,
-        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
       ),
       child: Text(
         texto,
         style: TextStyle(
-          color: isSelected ? fundo : cinza, fontWeight: FontWeight.bold,
+          color: isSelected ? fundo : cinza,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );

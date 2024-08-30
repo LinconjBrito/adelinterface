@@ -100,13 +100,17 @@ class _PageProcessosState extends State<PageProcessos> {
 
   @override
   Widget build(BuildContext context) {
-    final Color fundo = Color(0xFF131F24);
-    final Color rosadestaque = Color(0xFFFF2D55);
-    final Color laranjadestaque = Color(0xFFFF9500);
-    final Color branco = Color(0xFFE5E5E5);
-    final Color verde = Color(0xFF34C759);
-    final Color amarelo = Color(0xFFFFD74A);
-    final Color vermelho = Color.fromARGB(255, 219, 53, 53);
+
+
+    const Color laranjadestaque = Color(0xFFFF9500);
+    const Color verde = Color(0xFF34C759);
+    const Color amarelo = Color(0xFFFFD74A);
+    const Color vermelho = Color.fromARGB(255, 219, 53, 53);
+    const Color fundo = Color(0xFF131F24);
+    const Color rosadestaque = Color(0xFFFF2D55);
+
+
+
     return Scaffold(
       backgroundColor: fundo,
       appBar: AppBar(
@@ -116,7 +120,7 @@ class _PageProcessosState extends State<PageProcessos> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back, color: rosadestaque),
+          icon: const Icon(Icons.arrow_back, color: rosadestaque),
         ),
         backgroundColor: fundo,
         title: Align(
@@ -139,10 +143,10 @@ class _PageProcessosState extends State<PageProcessos> {
               itemBuilder: (context, index) {
                 return Column(
                   children: [
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Container(
                       width: 250,
-                      margin: EdgeInsets.symmetric(vertical: 10.0),
+                      margin: const EdgeInsets.symmetric(vertical: 10.0),
                       decoration: BoxDecoration(
                         border: Border.all(color: laranjadestaque, width: 1.0),
                         borderRadius: BorderRadius.circular(10.0),
@@ -166,7 +170,7 @@ class _PageProcessosState extends State<PageProcessos> {
                               ),
                               IconButton(
                                 iconSize: 30,
-                                icon: Icon(Icons.delete_forever_rounded,
+                                icon: const Icon(Icons.delete_forever_rounded,
                                     color: vermelho),
                                 onPressed: () => removerProcesso(index),
                               ),
@@ -196,15 +200,15 @@ class _PageProcessosState extends State<PageProcessos> {
                 },
                 style: OutlinedButton.styleFrom(
                   minimumSize:
-                      Size(45, 45), // Garante que o botão seja exatamente 40x40
-                  side: BorderSide(color: verde, width: 2),
+                      const Size(45, 45), // Garante que o botão seja exatamente 40x40
+                  side: const BorderSide(color: verde, width: 2),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                   backgroundColor: Colors.transparent,
                   padding: EdgeInsets.zero, // Remove o padding extra
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.add,
                   color: verde,
                   size:
@@ -230,7 +234,7 @@ class _PageProcessosState extends State<PageProcessos> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: verde,
                     padding:
-                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+                        const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
@@ -258,7 +262,7 @@ class _PageProcessosState extends State<PageProcessos> {
                 },
                 style: OutlinedButton.styleFrom(
                   minimumSize:
-                      Size(45, 45), // Garante que o botão seja exatamente 45x45
+                      const Size(45, 45), // Garante que o botão seja exatamente 45x45
                   side: BorderSide(color: amarelo, width: 2),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -266,7 +270,7 @@ class _PageProcessosState extends State<PageProcessos> {
                   backgroundColor: Colors.transparent,
                   padding: EdgeInsets.zero, // Remove o padding extra
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.bolt,
                   color: amarelo,
                   size:
@@ -283,6 +287,7 @@ class _PageProcessosState extends State<PageProcessos> {
 }
 
 Widget _textos(String text) {
+
   return Padding(
     padding: const EdgeInsets.only(left: 40.0),
     child: Align(
