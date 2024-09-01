@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "adelscalonatorgmail.com.escalonadors0.app-merged_res-27:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "adelscalonatorgmail.com.escalonadors0.app-main-21:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "adelscalonatorgmail.com.escalonadors0.app-merged_res-27:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "adelscalonatorgmail.com.escalonadors0.app-main-21:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "adelscalonatorgmail.com.escalonadors0.app-merged_res-27:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "adelscalonatorgmail.com.escalonadors0.app-main-21:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "adelscalonatorgmail.com.escalonadors0.app-merged_res-27:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "adelscalonatorgmail.com.escalonadors0.app-main-21:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "adelscalonatorgmail.com.escalonadors0.app-merged_res-27:/drawable-v21_launch_background.xml.flat",
+        "source": "adelscalonatorgmail.com.escalonadors0.app-main-21:/drawable-v21/launch_background.xml"
+    },
+    {
+        "merged": "adelscalonatorgmail.com.escalonadors0.app-merged_res-27:/xml_network_security_config.xml.flat",
+        "source": "adelscalonatorgmail.com.escalonadors0.app-main-21:/xml/network_security_config.xml"
+    },
+    {
+        "merged": "adelscalonatorgmail.com.escalonadors0.app-merged_res-27:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "adelscalonatorgmail.com.escalonadors0.app-main-21:/mipmap-hdpi/ic_launcher.png"
+    }
+]
