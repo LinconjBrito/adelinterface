@@ -1,6 +1,6 @@
 {
-    "name": "escalonadors0",
-    "short_name": "escalonadors0",
+    "name": "adelescalonador",
+    "short_name": "adelescalonador",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

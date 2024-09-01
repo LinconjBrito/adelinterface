@@ -1,7 +1,6 @@
 import 'package:escalonadors0/faster.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:escalonadors0/gant.dart';
 import 'package:escalonadors0/grafico.dart';
 
 class PageProcessos extends StatefulWidget {
